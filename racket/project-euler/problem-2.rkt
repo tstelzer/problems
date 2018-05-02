@@ -8,16 +8,15 @@
 ; By considering the terms in the Fibonacci sequence whose values do not exceed
 ; four million, find the sum of the even-valued terms.
 
-(define (stream-fib ceil)
-  (define (loop [xs '()] [a 0] [b 1])
+(define (fib ceil)
+  (let loop ([xs '()] [a 0] [b 1])
     (if (> (+ a b) ceil)
         xs
-        (loop (stream-cons (+ a b) xs) b (+ a b))))
-  (loop))
+        (loop (cons (+ a b) xs) b (+ a b)))))
 
-(define (stream-sum s)
-  (stream-fold + 0 s))
+(define (sum xs)
+  (foldl + 0 xs))
 
-(stream-sum (stream-filter even? (stream-fib (* 4 (expt 10 6)))))
+(sum (filter even? (fib (* 4 (expt 10 6)))))
 
 ; => 4613732
